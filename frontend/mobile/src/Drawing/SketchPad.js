@@ -15,12 +15,9 @@ export default class SketchPad extends Component {
   interval = null;
 
   static defaultProps = {
-    width: 500,
-    height: 500,
     color: '#000',
     size: 5,
     fillColor: '',
-    canvasClassName: 'canvas',
     debounceTime: 1000,
     animate: true,
     tool: TOOL_PENCIL,
@@ -34,6 +31,7 @@ export default class SketchPad extends Component {
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onDebouncedMove = this.onDebouncedMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
+    this.onTouch = this.onTouch.bind(this);
   }
 
   componentDidMount() {
@@ -57,6 +55,7 @@ export default class SketchPad extends Component {
   }
 
   onMouseDown(e) {
+    console.log(e);
     const data = this.tool.onMouseDown(...this.getCursorPosition(e), this.props.color, this.props.size, this.props.fillColor);
     data && data[0] && this.props.onItemStart && this.props.onItemStart.apply(null, data);
     if (this.props.onDebouncedItemChange) {
@@ -84,6 +83,13 @@ export default class SketchPad extends Component {
     }
   }
 
+  onTouch(e, mousAction) {
+    // If one finger touch
+    if (e.targetTouches.length === 1) {
+      mousAction(e.targetTouches[0]);
+    }
+  }
+
   getCursorPosition(e) {
     const {top, left} = this.canvas.getBoundingClientRect();
     return [
@@ -102,6 +108,10 @@ export default class SketchPad extends Component {
         onMouseMove={this.onMouseMove}
         onMouseOut={this.onMouseUp}
         onMouseUp={this.onMouseUp}
+        onTouchStartCapture={(e) => this.onTouch(e, this.onMouseDown)}
+        onTouchMoveCapture={(e) => this.onTouch(e, this.onMouseMove)}
+        onTouchEndCapture={(e) => this.onTouch(e, this.onMouseUp)}
+        onTouchCancelCapture={(e) => this.onTouch(e, this.onMouseUp)}
         width={width}
         height={height}
       />
