@@ -37,6 +37,7 @@ export default class SketchPad extends Component {
   componentDidMount() {
     this.canvas = findDOMNode(this.canvasRef);
     this.ctx = this.canvas.getContext('2d');
+
     this.initTool(this.props.tool);
   }
 
@@ -55,12 +56,11 @@ export default class SketchPad extends Component {
   }
 
   onMouseDown(e) {
-    console.log(e);
     const data = this.tool.onMouseDown(...this.getCursorPosition(e), this.props.color, this.props.size, this.props.fillColor);
     data && data[0] && this.props.onItemStart && this.props.onItemStart.apply(null, data);
     if (this.props.onDebouncedItemChange) {
       this.interval = setInterval(this.onDebouncedMove, this.props.debounceTime);
-    }
+}
   }
 
   onDebouncedMove() {
@@ -99,7 +99,7 @@ export default class SketchPad extends Component {
   }
 
   render() {
-    const {width, height, canvasClassName} = this.props;
+    const {canvasClassName} = this.props;
     return (
       <canvas
         ref={(canvas) => { this.canvasRef = canvas; }}
@@ -112,8 +112,6 @@ export default class SketchPad extends Component {
         onTouchMoveCapture={(e) => this.onTouch(e, this.onMouseMove)}
         onTouchEndCapture={(e) => this.onTouch(e, this.onMouseUp)}
         onTouchCancelCapture={(e) => this.onTouch(e, this.onMouseUp)}
-        width={width}
-        height={height}
       />
     )
   }
