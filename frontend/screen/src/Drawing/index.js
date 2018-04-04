@@ -3,10 +3,17 @@ import SketchPad from './SketchPad';
 import IO from 'socket.io-client';
 import './sketchpad.css';
 
-const wsClient = IO(`ws://127.0.0.1:2000`);
+const wsClient = IO(`ws://` + window.location.host + `:2000`);
 
 export default class Home extends React.Component {
 
+  componentDidMount() {
+    document.body.style.overflow = "hidden";   
+  }
+  
+  componentWillUnmount() {
+    document.body.style.overflow = "";
+  }
 
   constructor(props) {
     super(props);
