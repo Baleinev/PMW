@@ -7,14 +7,6 @@ const wsClient = IO(`ws://` + window.location.host + `:2000`);
 
 export default class Home extends React.Component {
 
-  componentDidMount() {
-    document.body.style.overflow = "hidden";   
-  }
-  
-  componentWillUnmount() {
-    document.body.style.overflow = "";
-  }
-
   constructor(props) {
     super(props);
 
@@ -45,6 +37,7 @@ export default class Home extends React.Component {
               canvasClassName='canvas-sketchpad'
           />
         </div>
+        <script>document.body.style.overflow = "hidden";</script>
     )
   }
 }
