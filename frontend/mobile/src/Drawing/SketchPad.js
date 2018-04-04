@@ -15,6 +15,8 @@ export default class SketchPad extends Component {
   interval = null;
 
   static defaultProps = {
+    width: 300,
+    height: 300,
     color: '#000',
     size: 5,
     fillColor: '',
@@ -38,7 +40,10 @@ export default class SketchPad extends Component {
   componentDidMount() {
     this.canvas = findDOMNode(this.canvasRef);
     this.ctx = this.canvas.getContext('2d');
-
+    var width = window.innerWidth;
+    var height = width * 0.75;
+    this.canvas.setAttribute('width', `${width}px`);
+    this.canvas.setAttribute('height', `${height}px`);
     this.initTool(this.props.tool);
   }
 
@@ -57,11 +62,7 @@ export default class SketchPad extends Component {
   }
 
   onMouseDown(e) {
-    const data = this.tool.onMouseDown(...this.getCursorPosition(e), this.props.color, this.props.size, this.props.fillColor);
-    data && data[0] && this.props.onItemStart && this.props.onItemStart.apply(null, data);
-    if (this.props.onDebouncedItemChange) {
-      this.interval = setInterval(this.onDebouncedMove, this.props.debounceTime);
-}
+    this.tool.onMouseDown(...this.getCursorPosition(e), this.props.color, this.props.size, this.props.fillColor);
   }
 
   onDebouncedMove() {
@@ -71,36 +72,25 @@ export default class SketchPad extends Component {
   }
 
   onMouseMove(e) {
-    const data = this.tool.onMouseMove(...this.getCursorPosition(e));
-    data && data[0] && this.props.onEveryItemChange && this.props.onEveryItemChange.apply(null, data);
+    this.tool.onMouseMove(...this.getCursorPosition(e));
   }
 
   onMouseUp(e) {
-    console.log('on mouse up');
     const data = this.tool.onMouseUp(...this.getCursorPosition(e));
+    //console.log(data);
     data && data[0] && this.props.onCompleteItem && this.props.onCompleteItem.apply(null, data);
-    if (this.props.onDebouncedItemChange) {
-      clearInterval(this.interval);
-      this.interval = null;
-    }
   }
 
   onTouch(e, mouseAction) {
-    // If one finger touch
     if (e.targetTouches.length === 1) {
       mouseAction(e.targetTouches[0]);
     }
   }
 
   onTouchEndCapture(e) {
-    console.log('on touch up');
-    console.log(e.changedTouches.clientX);
     var data = this.tool.onMouseUp(...this.getTouchPosition(e));
+    console.log(data);
     data && data[0] && this.props.onCompleteItem && this.props.onCompleteItem.apply(null, data);
-    if (this.props.onDebouncedItemChange) {
-      clearInterval(this.interval);
-      this.interval = null;
-    }
   }
 
   getTouchPosition(e) {
@@ -121,7 +111,7 @@ export default class SketchPad extends Component {
   }
 
   render() {
-    const {canvasClassName} = this.props;
+    const {height, width, canvasClassName} = this.props;
     return (
       <canvas
         ref={(canvas) => { this.canvasRef = canvas; }}
@@ -131,14 +121,11 @@ export default class SketchPad extends Component {
         onMouseOut={this.onMouseUp}
         onMouseUp={this.onMouseUp}
         onTouchStartCapture={(e) => this.onTouch(e, this.onMouseDown)}
-        onTouchMoveCapture={(e) => {
-          this.onTouch(e, this.onMouseMove)
-        }}
+        onTouchMoveCapture={(e) => this.onTouch(e, this.onMouseMove)}
         onTouchEndCapture={this.onTouchEndCapture}
-        onTouchCancelCapture={(e) => {
-          console.log('touch cancel');
-          this.onTouch(e, this.onMouseUp)
-        }}
+        onTouchCancelCapture={(e) => this.onTouch(e, this.onMouseUp)}
+        width={width}
+        height={height}
       />
     )
   }

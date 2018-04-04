@@ -1,11 +1,6 @@
 // note, io(<port>) will create a http server for you
 
-var app = require('http').createServer((req, res) => {
-})
-var io = require('socket.io')(app);
-var fs = require('fs');
-
-app.listen(2000);
+var io = require('socket.io')(2000);
 
 io.on('connection', function (socket) {
 

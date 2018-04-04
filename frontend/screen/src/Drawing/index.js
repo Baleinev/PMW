@@ -3,7 +3,7 @@ import SketchPad from './SketchPad';
 import IO from 'socket.io-client';
 import './sketchpad.css';
 
-const wsClient = IO(`http://benoit-laptop:2000`);
+const wsClient = IO(`ws://benoit-laptop:2000`);
 
 export default class Home extends React.Component {
 
@@ -12,13 +12,23 @@ export default class Home extends React.Component {
     super(props);
 
     this.state = {
+      width: 1024,
+      height: 768,
       items: []
     }
   }
 
   componentDidMount() {
     wsClient.on('addItem', item => {
-      console.log("received item");
+      if (item.tool === 'pencil') {
+        item.points = item.points.map(p => {
+          return {
+            x: p.x * this.state.width,
+            y: p.y * this.state.height
+          };
+        })
+      }
+      console.log(item.points);
       this.setState({items: this.state.items.concat([item])})
     });
   }
@@ -29,6 +39,8 @@ export default class Home extends React.Component {
     return (
         <div>
           <SketchPad
+              width={1024}
+              height={768}
               animate={true}
               size={size}
               color={color}

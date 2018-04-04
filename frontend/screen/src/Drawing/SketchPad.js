@@ -58,6 +58,8 @@ export default class SketchPad extends Component {
       <canvas
         ref={(canvas) => { this.canvasRef = canvas; }}
         className={canvasClassName}
+        width={width}
+        height={height}
       />
     )
   }

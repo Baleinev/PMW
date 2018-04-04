@@ -6,20 +6,16 @@ import {TOOL_ELLIPSE, TOOL_LINE, TOOL_PENCIL, TOOL_RECTANGLE} from './tools';
 import IO from 'socket.io-client';
 import './sketchpad.css';
 
-const wsClient = IO(`http://benoit-laptop:2000`);
+const wsClient = IO(`ws://benoit-laptop:2000`);
 
 export default class Home extends React.Component {
 
-  sendItem = (item) => {
-    wsClient.emit('addItem', item);
-  };
-
-  handleColorChange = (color) => {
-    this.setState({color: color.hex});
-  };
 
   constructor(props) {
     super(props);
+
+    this.canvas_width = window.innerWidth;
+    this.canvas_height = this.canvas_width * 0.75;
 
     this.state = {
       tool: TOOL_PENCIL,
@@ -31,6 +27,23 @@ export default class Home extends React.Component {
     }
   }
 
+  sendItem = (item) => {
+    if (item.points) {
+      item.points = item.points.map(p => {
+        return {
+          x: p.x / this.canvas_width,
+          y: p.y / this.canvas_height
+        };
+      })
+    }
+
+    wsClient.emit('addItem', item);
+  };
+
+  handleColorChange = (color) => {
+    this.setState({color: color.hex});
+  };
+
   render() {
     const {tool, size, color, fill, fillColor, items} = this.state;
 
@@ -38,16 +51,20 @@ export default class Home extends React.Component {
         <div>
           <Row>
             <Col>
-              <SketchPad
-                  animate={true}
-                  size={size}
-                  color={color}
-                  fillColor={fill ? fillColor : ''}
-                  items={items}
-                  tool={tool}
-                  onCompleteItem={this.sendItem}
-                  canvasClassName='canvas-sketchpad'
-              />
+              <div style={{float: 'left', marginRight: 20}}>
+                <SketchPad
+                    width={'100vw'}
+                    height={'75vw'}
+                    animate={true}
+                    size={size}
+                    color={color}
+                    fillColor={fill ? fillColor : ''}
+                    items={items}
+                    tool={tool}
+                    onCompleteItem={this.sendItem}
+                    canvasClassName='canvas-sketchpad'
+                />
+              </div>
             </Col>
           </Row>
           <Row>

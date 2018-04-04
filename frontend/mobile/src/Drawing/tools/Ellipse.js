@@ -16,6 +16,9 @@ export default (context) => {
       start: { x, y },
       end: null
     };
+
+    console.log(context.canvas.clientWidth);
+    console.log(context.canvas.clientHeight);
     imageData = context.getImageData(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
     return [ellipse];
   };
