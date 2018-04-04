@@ -1,6 +1,6 @@
 .canvas-sketchpad {
     background-color: mediumaquamarine;
-    width: 1024px;
-    height: 768px;
+    width: 100vw;
+    height: 100vh;
 }
 
