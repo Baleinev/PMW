@@ -1,11 +1,15 @@
 // note, io(<port>) will create a http server for you
-var io = require('socket.io')(2000);
+
+var app = require('http').createServer((req, res) => {
+})
+var io = require('socket.io')(app);
+var fs = require('fs');
+
+app.listen(2000);
 
 io.on('connection', function (socket) {
 
-	console.log("connection")
   socket.on('addItem', function (data) {
-	console.log("Received item")
 	socket.broadcast.emit('addItem', data);
   });
 

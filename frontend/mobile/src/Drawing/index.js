@@ -6,13 +6,14 @@ import {TOOL_ELLIPSE, TOOL_LINE, TOOL_PENCIL, TOOL_RECTANGLE} from './tools';
 import IO from 'socket.io-client';
 import './sketchpad.css';
 
-const wsClient = IO(`ws://127.0.0.1:2000`);
+const wsClient = IO(`http://benoit-laptop:2000`);
 
 export default class Home extends React.Component {
 
   sendItem = (item) => {
     wsClient.emit('addItem', item);
   };
+
   handleColorChange = (color) => {
     this.setState({color: color.hex});
   };
@@ -38,8 +39,6 @@ export default class Home extends React.Component {
           <Row>
             <Col>
               <SketchPad
-                  width={500}
-                  height={500}
                   animate={true}
                   size={size}
                   color={color}

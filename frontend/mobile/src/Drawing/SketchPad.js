@@ -32,6 +32,7 @@ export default class SketchPad extends Component {
     this.onDebouncedMove = this.onDebouncedMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
     this.onTouch = this.onTouch.bind(this);
+    this.onTouchEndCapture = this.onTouchEndCapture.bind(this);
   }
 
   componentDidMount() {
@@ -75,6 +76,7 @@ export default class SketchPad extends Component {
   }
 
   onMouseUp(e) {
+    console.log('on mouse up');
     const data = this.tool.onMouseUp(...this.getCursorPosition(e));
     data && data[0] && this.props.onCompleteItem && this.props.onCompleteItem.apply(null, data);
     if (this.props.onDebouncedItemChange) {
@@ -83,11 +85,31 @@ export default class SketchPad extends Component {
     }
   }
 
-  onTouch(e, mousAction) {
+  onTouch(e, mouseAction) {
     // If one finger touch
     if (e.targetTouches.length === 1) {
-      mousAction(e.targetTouches[0]);
+      mouseAction(e.targetTouches[0]);
     }
+  }
+
+  onTouchEndCapture(e) {
+    console.log('on touch up');
+    console.log(e.changedTouches.clientX);
+    var data = this.tool.onMouseUp(...this.getTouchPosition(e));
+    data && data[0] && this.props.onCompleteItem && this.props.onCompleteItem.apply(null, data);
+    if (this.props.onDebouncedItemChange) {
+      clearInterval(this.interval);
+      this.interval = null;
+    }
+  }
+
+  getTouchPosition(e) {
+    const {top, left} = this.canvas.getBoundingClientRect();
+    var pos = e.changedTouches[0];
+    return [
+        pos.clientX - left,
+        pos.clientY - top
+    ]
   }
 
   getCursorPosition(e) {
@@ -109,9 +131,14 @@ export default class SketchPad extends Component {
         onMouseOut={this.onMouseUp}
         onMouseUp={this.onMouseUp}
         onTouchStartCapture={(e) => this.onTouch(e, this.onMouseDown)}
-        onTouchMoveCapture={(e) => this.onTouch(e, this.onMouseMove)}
-        onTouchEndCapture={(e) => this.onTouch(e, this.onMouseUp)}
-        onTouchCancelCapture={(e) => this.onTouch(e, this.onMouseUp)}
+        onTouchMoveCapture={(e) => {
+          this.onTouch(e, this.onMouseMove)
+        }}
+        onTouchEndCapture={this.onTouchEndCapture}
+        onTouchCancelCapture={(e) => {
+          console.log('touch cancel');
+          this.onTouch(e, this.onMouseUp)
+        }}
       />
     )
   }
