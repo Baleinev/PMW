@@ -35,8 +35,17 @@ export default class Home extends React.Component {
           y: p.y / this.canvas_height
         };
       })
-    }
+    } else {
+      item.start = {
+        x: item.start.x / this.canvas_width,
+        y: item.start.y / this.canvas_height
+      };
+      item.end = {
+        x: item.end.x / this.canvas_width,
+        y: item.end.y / this.canvas_height
+      };
 
+    }
     wsClient.emit('addItem', item);
   };
 

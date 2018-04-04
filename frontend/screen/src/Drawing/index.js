@@ -20,6 +20,7 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     wsClient.on('addItem', item => {
+      console.log(item);
       if (item.tool === 'pencil') {
         item.points = item.points.map(p => {
           return {
@@ -27,8 +28,16 @@ export default class Home extends React.Component {
             y: p.y * this.state.height
           };
         })
+      } else {
+        item.start = {
+          x: item.start.x * this.state.width,
+          y: item.start.y * this.state.height
+        };
+        item.end = {
+          x: item.end.x * this.state.width,
+          y: item.end.y * this.state.height
+        };
       }
-      console.log(item.points);
       this.setState({items: this.state.items.concat([item])})
     });
   }
