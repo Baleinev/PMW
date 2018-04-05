@@ -25,8 +25,6 @@ export default (context) => {
     context.lineWidth = item.size;
     context.strokeStyle = item.color;
     context.globalCompositeOperation = 'source-over';
-    console.log(start.x, start.y);
-    console.log(x, y);
     context.moveTo(start.x, start.y);
     context.lineTo(x, y);
     context.closePath();

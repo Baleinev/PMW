@@ -77,7 +77,6 @@ export default class SketchPad extends Component {
 
   onMouseUp(e) {
     const data = this.tool.onMouseUp(...this.getCursorPosition(e));
-    //console.log(data);
     data && data[0] && this.props.onCompleteItem && this.props.onCompleteItem.apply(null, data);
   }
 
@@ -89,7 +88,6 @@ export default class SketchPad extends Component {
 
   onTouchEndCapture(e) {
     var data = this.tool.onMouseUp(...this.getTouchPosition(e));
-    console.log(data);
     data && data[0] && this.props.onCompleteItem && this.props.onCompleteItem.apply(null, data);
   }
 
