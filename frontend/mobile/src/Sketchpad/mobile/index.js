@@ -16,7 +16,7 @@ export default class Home extends React.Component {
     super(props);
 
     this.state = {
-      tool: TOOL_PENCIL,
+      tool: config.default.tool,
       size: config.default.lineWidth,
       color: config.default.color.line,
       fillColor: config.default.color.fill,
@@ -65,8 +65,6 @@ export default class Home extends React.Component {
               <Canvas
                   onCompleteItem={this.sendItem}
                   canvasClassName='canvas-sketchpad'
-                  height={config.canvas.width}
-                  width={config.canvas.height}
                   items={this.state.items}
                   color={this.state.color}
                   size={this.state.size}

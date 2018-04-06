@@ -23,7 +23,6 @@ export default class Home extends React.Component {
   componentDidMount() {
     wsClient.on('addItem', item => {
 
-      console.log(item);
       item.size *= config.screen.width;
       if (item.tool === 'pencil') {
         item.points = item.points.map(this.toAbsolutePosition)
