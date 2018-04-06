@@ -1,0 +1,5 @@
+{
+  "host" : "localhost",
+  "clientPort" : 9001,
+  "screenPort" : 9002
+}
