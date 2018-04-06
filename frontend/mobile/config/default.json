@@ -1,10 +1,13 @@
 {
   "sketchpad": {
     "canvas": {
-      "ratio": {
-        "width": "100vw",
-        "height": "75vw"
-      }
+      "ratio": 1.333,
+      "width": "100vw",
+      "height": "75vw"
+    },
+    "screen": {
+      "width": 1024,
+      "height": 768
     },
     "default": {
       "lineWidth": 2,

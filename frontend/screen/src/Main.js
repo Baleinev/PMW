@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Home from './Home';
-import Drawing from './Drawing';
+import Drawing from '../../mobile/src/Sketchpad/screen/index';
 
 class Main extends Component {
   render() {

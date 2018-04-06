@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import Home from './Home';
-import Drawing from './Drawing';
+import SketchpadMobile from './Sketchpad/mobile/index';
+import SketchpadScreen from './Sketchpad/screen/index';
 
 class Main extends Component {
   render() {
@@ -11,7 +12,8 @@ class Main extends Component {
 
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/drawing' component={Drawing} />
+            <Route exact path='/drawing/mobile' component={SketchpadMobile} />
+            <Route exact path='/drawing/screen' component={SketchpadScreen} />
           </Switch>
         </BrowserRouter>
     );
