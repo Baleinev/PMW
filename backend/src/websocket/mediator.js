@@ -16,8 +16,8 @@ class Mediator {
     this.init();
   }
   /**
-	 * Initializes sockets in charge of the sketchpad app
-	 */
+   * Initializes sockets in charge of the sketchpad app
+   */
   init() {
     this.clientSocket = io(this.appPort);
     console.log(`[apps]    Listening on localhost at port ${this.appPort}`);
@@ -28,9 +28,9 @@ class Mediator {
   }
 
   /**
-	 * Configures the mediator main behavior
-	 * implementation of the protocol
-	 */
+   * Configures the mediator main behavior
+   * implementation of the protocol
+   */
   configure() {
     const context = this;
     const serverSocketIDs = this.screens.map(s => s.serverSocketID);
@@ -45,7 +45,6 @@ class Mediator {
 
       socket.on('reserve', (data, res) => {
         // Sanity check
-        console.log(this.screens);
         if (!data.screenNumber || data.screenNumber < 0 || data.screenNumber > this.screens.length) {
           res(false);
         }
@@ -65,7 +64,7 @@ class Mediator {
 
       socket.on('kick', (data) => { context.screens[data.screenNumber].clientSocketID = null; });
 
-      socket.on('addItem', (item, { screenNumber }, res) => {
+      socket.on('addShape', (item, { screenNumber }, res) => {
         console.log('Item adding requested...');
 
         // Checking screen sync with client
@@ -83,7 +82,7 @@ class Mediator {
 
         // Transmitting data to appropriate manager
         screens.forEach((screen) => {
-          context.screensSocket.to(screen).emit('addItem', item, screenNumber);
+          context.screensSocket.to(screen).emit('addShape', item, screenNumber);
         });
       });
 

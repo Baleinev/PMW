@@ -35,7 +35,7 @@ export default class SketchpadScreen extends React.Component {
   }
 
   componentDidMount() {
-    this.socket.on('addItem', (item) => {
+    this.socket.on('addShape', (item) => {
       item.size *= config.screen.width;
       if (item.tool === 'pencil') {
         item.points = item.points.map(this.toAbsolutePosition)
@@ -52,13 +52,15 @@ export default class SketchpadScreen extends React.Component {
 
     const {width, height} = this.state;
     return (
-        <Canvas
-            width={width}
-            height={height}
-            animate={true}
-            canvasClassName='canvas-screen'
-            items={this.state.items}
-        />
+        <div>
+          <Canvas
+              width={width}
+              height={height}
+              animate={true}
+              canvasClassName='canvas-screen'
+              items={this.state.items}
+          />
+        </div>
     )
   }
 }

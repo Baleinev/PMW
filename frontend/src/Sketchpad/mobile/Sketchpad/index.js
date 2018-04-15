@@ -1,8 +1,8 @@
 import React from 'react';
-import {Row, Col} from 'antd';
 import ToolSelector from './ToolSelector';
 import SizeSelector from './SizeSelector';
-import ColorPicker from "./ColorPicker";
+import ColorPicker from './ColorPicker';
+import {Button} from 'semantic-ui-react';
 import Canvas from '../../Canvas/index';
 import './sketchpad.css';
 
@@ -64,13 +64,12 @@ export default class Home extends React.Component {
       item.end = this.toRelativePosition(item.end);
     }
 
-    window.socket.emit('addItem', item, { screenNumber: this.screenNumber }, (res) => {
+    window.socket.emit('addShape', item, { screenNumber: this.screenNumber }, (res) => {
       console.log(res);
     });
   };
 
   render() {
-
     return (
         <div>
           <Canvas
@@ -86,6 +85,7 @@ export default class Home extends React.Component {
           <ToolSelector handleToolChange={this.handleToolChange}/>
           <SizeSelector onSizeChange={this.handleSizeChange}/>
           <ColorPicker onColorChange={this.handleColorChange}/>
+          <Button onClick={this.finishSketch} >Terminé</Button>
         </div>
     )
   }

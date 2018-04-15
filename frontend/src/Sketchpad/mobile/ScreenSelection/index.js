@@ -1,6 +1,7 @@
 import React from 'react';
 import ScreenGrid from './ScreenGrid';
 import initSocket from '../socket';
+import _ from 'lodash';
 
 export default class ScreenSelection extends React.Component {
 
@@ -8,9 +9,7 @@ export default class ScreenSelection extends React.Component {
     super();
 
     this.state = {
-      screensStatus: [
-          false, false, false, false, false, false, false, false
-      ]
+      screensStatus: _.fill(Array(8), false)
     };
 
   }
@@ -29,17 +28,20 @@ export default class ScreenSelection extends React.Component {
   }
 
   handleChooseScreen = (screenNumber) => {
-    console.log('choose');
-    window.socket.emit('reserve', { screenNumber }, (res) => {
-      console.log(res);
-      this.props.history.push(`/sketchpad/draw/${screenNumber}`);
-    })
+    if (this.state.screensStatus[screenNumber]) {
+      window.socket.emit('reserve', { screenNumber }, (res) => {
+        console.log(res);
+        this.props.history.push(`/sketchpad/draw/${screenNumber}`);
+      })
+    } else {
+      //TODO: afficher popup screen occupé
+      console.log("occupé!")
+    }
   };
 
   render() {
     return (
         <div>
-
           <h1>Choisissez un écran</h1>
           <ScreenGrid
               screensStatus={this.state.screensStatus}
