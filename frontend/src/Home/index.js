@@ -6,7 +6,8 @@ export default class Home extends React.Component {
   render() {
     return (
         <div>
-          <Link to='/drawing'>Drawing app</Link>
+          <Link to='/sketchpad/draw/1'>Drawing app</Link>
+          <Link to='/sketchpad'>Screen choice</Link>
         </div>
     )
   }

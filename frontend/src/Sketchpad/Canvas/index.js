@@ -2,8 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import { findDOMNode } from 'react-dom'
 import { Pencil, TOOL_PENCIL, Line, TOOL_LINE, Ellipse, TOOL_ELLIPSE, Rectangle, TOOL_RECTANGLE } from './tools'
 
-const config = CONFIG.sketchpad;
-
 export const toolsMap = {
   [TOOL_PENCIL]: Pencil,
   [TOOL_LINE]: Line,

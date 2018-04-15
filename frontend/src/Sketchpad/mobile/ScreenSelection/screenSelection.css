@@ -1,0 +1,11 @@
+.screen-box {
+    height: 15vh;
+}
+
+.screen-box.free {
+    background-color: yellowgreen;
+}
+
+.screen-box.occupied {
+    background-color: lightgrey;
+}

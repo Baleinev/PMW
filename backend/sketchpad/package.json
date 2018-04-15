@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "semantic-ui-css": "^2.3.1",
     "socket.io": "^2.1.0"
   }
 }

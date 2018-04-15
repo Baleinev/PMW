@@ -13,6 +13,6 @@ wsScreen.on('addItem',(data) => console.log('[screen2] Item successfully added :
 
 wsScreen.emit('subscribe', {screens:[1,2,5]})
 
-setTimeout(()=>wsClient.emit('kick',{screenNumber:2}),5000)
+setTimeout(()=> { wsClient.emit('kick',{screenNumber:2}),5000} )
 
 
