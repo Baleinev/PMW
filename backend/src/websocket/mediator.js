@@ -1,5 +1,28 @@
 const io = require('socket.io');
 
+/**
+ * Provides with an interface to communicate back and forth
+ * between the screens and the apps.
+ * 4 entites are to be distinguished ; the apps, the mediator, the screen and the monitor.
+ * An app is defined as the endpoint provided to the users.
+ * We, however, make a big difference between a 'conceptual screen' and
+ * a 'physical screen'. The former is the entity behind the latter and
+ * thus managing them.
+ * Finally, the monitor is a potential man-in-the-midde actor, providing
+ * with administrations actions (overseeing traffic, kicking users, ...)
+ *
+ * PROTOCOL APPS -> MEDIATOR :
+ *  - 'state' , {} : query the state of the screens (availability)
+ *  - 'reserve', {screenNumber:int} : Asks for a reservation for the screen specified in the payload
+ *  - 'terminate', {} : Terminate connection and frees association with hosts
+ *
+ * PROTOCOL MONITOR -> APPS :
+ *  - 'kick' , {screenNumber:int} : Kicks a user on the screen specified by the payload
+ *
+ * PROTOCOL SCREEN -> MEDIATOR :
+ *  - 'susbcribe', {screens:[]} : Informs the mediator that this 'screen' is managing
+ *                                the specified physical screens.
+ */
 class Mediator {
   constructor(noScreen, appPort, screenPort) {
     this.appPort = appPort;
@@ -37,15 +60,15 @@ class Mediator {
 
     // Setting connection handle
     this.clientSocket.on('connection', (socket) => {
-      console.log('connection');
-
       socket.on('state', (res) => {
         res(this.getState());
       });
 
       socket.on('reserve', (data, res) => {
         // Sanity check
-        if (!data.screenNumber || data.screenNumber < 0 || data.screenNumber > this.screens.length) {
+        if (!data.screenNumber ||
+            data.screenNumber < 0 ||
+            data.screenNumber > this.screens.length) {
           res(false);
         }
 
@@ -60,6 +83,10 @@ class Mediator {
           context.screens[data.screenNumber].clientSocketID = socket.id;
           res(true);
         }
+      });
+
+      socket.on('terminate', (data) => {
+        context.screens
       });
 
       socket.on('kick', (data) => { context.screens[data.screenNumber].clientSocketID = null; });
@@ -89,7 +116,7 @@ class Mediator {
       // Removing the association between the disconnect client and the screen
       socket.on('disconnect', () => {
         const i = this.screens.findIndex(screen => screen.clientSocketID === socket.id);
-        //this.screens[i].clientSocketID = null;
+        // this.screens[i].clientSocketID = null;
       });
     });
 
@@ -117,8 +144,9 @@ class Mediator {
   }
 
   /*
-	 * Getter for the mediator underlying state
-	 */
+  *
+  * Getter for the mediator underlying state
+  * */
   getState() {
     return this.screens.map(s => s.clientSocketID === null);
   }
