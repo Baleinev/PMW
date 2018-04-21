@@ -4,6 +4,8 @@ import IO from 'socket.io-client';
 import '../sketchpad.css';
 
 const config = CONFIG.sketchpad;
+const network = CONFIG.network;
+
 
 export default class SketchpadScreen extends React.Component {
 
@@ -27,7 +29,7 @@ export default class SketchpadScreen extends React.Component {
   }
 
   componentWillMount() {
-    this.socket = IO(`ws://benoit-laptop:9002`);
+    this.socket = IO("ws://" + network.host + ":" + network.screenPort);
     this.socket.emit('subscribe', {screens: this.state.screenNumber}, (res) => {
       console.log(res);
     });

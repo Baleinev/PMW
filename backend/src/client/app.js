@@ -1,7 +1,8 @@
 const wsClients = [];
+const network = CONFIG.network;
 
 const setup = (i) => {
-  wsClients[i] = require('socket.io-client')('http://localhost:9001');
+  wsClients[i] = require('socket.io-client')("http://" + network.host + ":" + network.appsPort);
   wsClients[i].on('err', data => console.log(data));
   wsClients[i].on('state', data => console.log(`[${wsClients[0].id}]` + ' State : ', data));
   wsClients[i].on('ack', data => console.log(`Subscription : ${data === true ? 'Success' : 'Failed'}`));
