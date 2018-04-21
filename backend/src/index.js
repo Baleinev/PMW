@@ -1,5 +1,5 @@
 const network = require('./config.json')
-const Mediator = require('./websocket/mediator');
+const Mediator = require('./mediator');
 /**
  * Initializes all websockets
  */

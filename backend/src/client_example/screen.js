@@ -1,6 +1,6 @@
 const io = require('socket.io-client')
 const io2 = require('socket.io-client')
-const network = CONFIG.network;
+const network =  require('../config.json');
 
 const wsClient = io("http://" + network.host + ":" + network.screenPort);
 const wsClient2 = io2("http://" + network.host + ":" + network.screenPort);
