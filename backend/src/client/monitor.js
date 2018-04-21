@@ -1,8 +1,9 @@
-const io = require('socket.io-client')
-const {host,clientPort,screenPort} = require('../config')
+const io = require('socket.io-client');
+//const {host,clientPort,screenPort} = require('../config')
+const network =  require('../config.json');
 
-const wsClient = io('ws://'+host+':'+clientPort)
-const wsScreen = io('ws://'+host+':'+screenPort)
+const wsClient = io('ws://'+network.host+':'+network.appsPort)
+const wsScreen = io('ws://'+network.host+':'+network.screenPort)
 
 wsClient.on('err',(data) => {console.log(data)})
 wsScreen.on('err',(data) => {console.log(data)})

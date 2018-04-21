@@ -1,5 +1,5 @@
 const wsClients = [];
-const network = CONFIG.network;
+const network = require('../config.json');
 
 const setup = (i) => {
   wsClients[i] = require('socket.io-client')("http://" + network.host + ":" + network.appsPort);
