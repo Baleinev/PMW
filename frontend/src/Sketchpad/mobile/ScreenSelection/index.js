@@ -34,8 +34,7 @@ export default class ScreenSelection extends React.Component {
         this.props.history.push(`/sketchpad/draw/${screenNumber}`);
       })
     } else {
-      //TODO: afficher popup screen occupé
-      console.log("occupé!")
+      alert("Ecran occupé!")
     }
   };
 

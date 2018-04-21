@@ -1,6 +1,8 @@
 // note, io(<port>) will create a http server for you
 
-var io = require('socket.io')(2000);
+const network = CONFIG.network;
+
+var io = require('socket.io')(network.socketPort);
 
 io.on('connection', function (socket) {
 
