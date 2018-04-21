@@ -1,5 +1,7 @@
 {
-  "host" : "localhost",
-  "clientPort" : 9001,
-  "screenPort" : 9002
+  "host":"localhost",
+  "appsPort":9001,
+  "screenPort":9002,
+  "frontPort":3000,
+  "socketPort":2000
 }

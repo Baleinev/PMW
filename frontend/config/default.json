@@ -22,13 +22,13 @@
       "min": 1,
       "max": 10
     },
-    "animate": true,
-    "network": {
-      "host":"localhost",
-      "appsPort":9001,
-      "screenPort":9002,
-      "frontPort":3000,
-      "socketPort":2000
-    }
+    "animate": true
+  },
+  "network": {
+    "host":"localhost",
+    "appsPort":9001,
+    "screenPort":9002,
+    "frontPort":3000,
+    "socketPort":2000
   }
 }
