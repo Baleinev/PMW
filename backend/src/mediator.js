@@ -1,4 +1,5 @@
 const io = require('socket.io');
+const ads = require('./ads');
 
 /**
  * Provides with an interface to communicate back and forth
@@ -55,8 +56,8 @@ class Mediator {
    * implementation of the protocol
    */
   configure() {
+
     const context = this;
-    const serverSocketIDs = this.screens.map(s => s.serverSocketID);
 
     // Setting connection handle
     this.clientSocket.on('connection', (socket) => {
@@ -87,12 +88,13 @@ class Mediator {
       });
 
       socket.on('terminate', () => {
-        // TODO : free association in context.screens
           const i = this.screens.findIndex(screen => screen.clientSocketID === socket.id);
-          this.screens[i] = {
-              clientSocketID: null,
-              serverSocketID: [],
-          };
+
+          if(i !== -1)
+            this.screens[i] = {
+                clientSocketID: null,
+                serverSocketID: [],
+            };
       });
 
       socket.on('kick', (data) => { context.screens[data.screenNumber].clientSocketID = null; });
@@ -122,10 +124,12 @@ class Mediator {
       // Removing the association between the disconnect client and the screen
       socket.on('disconnect', () => {
           const i = this.screens.findIndex(screen => screen.clientSocketID === socket.id);
-          this.screens[i] = {
-              clientSocketID: null,
-              serverSocketID: [],
-          };
+
+          if(i !== -1)
+            this.screens[i] = {
+                clientSocketID: null,
+                serverSocketID: [],
+            };
       });
     });
 
@@ -142,7 +146,9 @@ class Mediator {
       });
 
       socket.on('disconnect', () => {
-        // Removing all bindings related to the manager that just disconnected
+        const serverSocketIDs = this.screens.map(s => s.serverSocketID);
+
+          // Removing all bindings related to the manager that just disconnected
         for (let i = 0; i < context.screens.length; i++) {
           if (context.screens[i] !== undefined && serverSocketIDs.includes(socket.id)) {
             context.screens[serverSocketIDs.indexOf(socket.id)] = null;
@@ -150,12 +156,33 @@ class Mediator {
         }
       });
     });
+
+    // Recurrently sending ads to the screen
+    for(const i in ads)
+        setInterval(()=>{this.sendAds(ads[i])},ads[i].interval*1000)
+
   }
 
-  /*
-  *
-  * Getter for the mediator underlying state
-  * */
+  /**
+   * Send an order for a screen to display a sponsor on it
+   * @param sponsor The specific sponsor to display
+   */
+  sendAds (sponsor) {
+      const filt = []
+      for(const s in this.screens)
+          if(!this.getState()[s])
+              filt.push(s)
+
+      for(const as of filt)
+        for(const socket of this.screens[as].serverSocketID)
+          this.screensSocket.to(socket).emit('ads', sponsor);
+  }
+
+
+  /**
+   * Getter for the mediator underlying state
+   * @returns {boolean[]}
+   */
   getState() {
     return this.screens.map(s => s.clientSocketID === null);
   }

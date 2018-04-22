@@ -30,7 +30,7 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     if (!window.socket) {
-      this.props.history.push('/sketchpad');
+      this.props.history.push('/');
     }
   }
 

@@ -1,0 +1,22 @@
+[
+  {
+    "name":"sponso1",
+    "interval": 30,
+    "res":"/url1"
+  },
+  {
+    "name":"sponso2",
+    "interval": 450,
+    "res":"/url2"
+  },
+  {
+    "name":"sponso3",
+    "interval": 300,
+    "res":"/url3"
+  },
+  {
+    "name":"sponso4",
+    "interval": 900,
+    "res":"/url4"
+  }
+]

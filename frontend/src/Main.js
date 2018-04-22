@@ -21,7 +21,7 @@ class Main extends Component {
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/sketchpad/draw/:screenNumber([0-7])' component={SketchpadMobile} />
-              <Route exact path='/drawing/screen' component={SketchpadScreen} />
+              <Route exact path='/sketchpad/screen' component={SketchpadScreen} />
               <Route exact path='/sketchpad' component={ScreenSelection} />
             </Switch>
         </BrowserRouter>
