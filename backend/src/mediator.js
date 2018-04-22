@@ -66,10 +66,11 @@ class Mediator {
 
       socket.on('reserve', (data, res) => {
         // Sanity check
-        if (!data.screenNumber ||
+        if ((!data.screenNumber && data.screenNumber !== 0) ||
             data.screenNumber < 0 ||
             data.screenNumber > this.screens.length) {
           res(false);
+          return;
         }
 
         console.log(`Request received for screen ${data.screenNumber}`);
@@ -85,8 +86,8 @@ class Mediator {
         }
       });
 
-      socket.on('terminate', (data) => {
-        context.screens
+      socket.on('terminate', () => {
+        // TODO : free association in context.screens
       });
 
       socket.on('kick', (data) => { context.screens[data.screenNumber].clientSocketID = null; });
@@ -115,8 +116,11 @@ class Mediator {
 
       // Removing the association between the disconnect client and the screen
       socket.on('disconnect', () => {
-        const i = this.screens.findIndex(screen => screen.clientSocketID === socket.id);
-        // this.screens[i].clientSocketID = null;
+          const i = this.screens.findIndex(screen => screen.clientSocketID === socket.id);
+          this.screens[i] = {
+              clientSocketID: null,
+              serverSocketID: [],
+          };
       });
     });
 
