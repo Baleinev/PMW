@@ -6,9 +6,9 @@ const ads = require('./ads');
  * between the screens and the apps.
  * 4 entites are to be distinguished ; the apps, the mediator, the screen and the monitor.
  * An app is defined as the endpoint provided to the users.
- * We, however, make a big difference between a 'conceptual screen' and
+ * We then make a big difference between a 'conceptual screen' and
  * a 'physical screen'. The former is the entity behind the latter and
- * thus managing them.
+ * thus managing it.
  * Finally, the monitor is a potential man-in-the-midde actor, providing
  * with administrations actions (overseeing traffic, kicking users, ...)
  *
@@ -16,7 +16,7 @@ const ads = require('./ads');
  *  - 'state' , {} : query the state of the screens (availability)
  *  - 'reserve', {screenNumber:int} : Asks for a reservation for the screen specified in the payload
  *  - 'terminate', {} : Terminate connection and frees association with hosts
- *
+ *  - 'addShape', {item:paint object,screenNumber:int} : Add a shape to be drawn on the screen
  * PROTOCOL MONITOR -> APPS :
  *  - 'kick' , {screenNumber:int} : Kicks a user on the screen specified by the payload
  *
