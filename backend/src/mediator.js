@@ -88,6 +88,11 @@ class Mediator {
 
       socket.on('terminate', () => {
         // TODO : free association in context.screens
+          const i = this.screens.findIndex(screen => screen.clientSocketID === socket.id);
+          this.screens[i] = {
+              clientSocketID: null,
+              serverSocketID: [],
+          };
       });
 
       socket.on('kick', (data) => { context.screens[data.screenNumber].clientSocketID = null; });

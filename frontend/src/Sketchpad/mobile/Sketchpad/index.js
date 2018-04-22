@@ -10,7 +10,7 @@ const config = CONFIG.sketchpad;
 
 export default class Home extends React.Component {
 
-  constructor({props, match}) {
+    constructor({props, match}) {
     super(props);
 
 
@@ -46,6 +46,11 @@ export default class Home extends React.Component {
   handleSizeChange = (size) => {
     this.setState({size})
   };
+
+  finishSketch = () => {
+    window.socket.emit('terminate')
+    this.props.history.push('/sketchpad');
+  }
 
   toRelativePosition = (p) => {
     return {
