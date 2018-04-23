@@ -3,5 +3,5 @@
   "appsPort":9001,
   "screenPort":9002,
   "frontPort":3000,
-  "socketPort":2000
+  "screenNumber":6
 }

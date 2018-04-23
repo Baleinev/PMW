@@ -6,6 +6,7 @@
       "height": "75vw"
     },
     "screen": {
+      "numbers":6,
       "width": 1024,
       "height": 768
     },
