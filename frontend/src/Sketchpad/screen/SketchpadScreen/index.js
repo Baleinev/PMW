@@ -2,6 +2,7 @@ import React from 'react';
 import Canvas from '../../Canvas/index';
 import IO from 'socket.io-client';
 import '../sketchpad.css';
+import Ad from "../../../Ad";
 
 const config = CONFIG.sketchpad;
 const network = CONFIG.network;
@@ -64,7 +65,7 @@ export default class SketchpadScreen extends React.Component {
 
   render() {
     const {width, height} = this.state;
-    if(this.state.displayedAd === null){
+    if (this.state.displayedAd === null){
         return (
             <div>
                 <Canvas
@@ -75,12 +76,9 @@ export default class SketchpadScreen extends React.Component {
                     items={this.state.items}
                 />
             </div>)
-    }
-    else{
+    } else {
       return(
-          <div style={{width: width + 'px',height:height+'px'}}>
-            <h4 className='ad' style={{lineHeight:height+'px'}}>Affichage pub : {this.state.displayedAd.name}</h4>
-          </div>
+          <Ad image={this.state.displayedAd.name}/>
       )
     }
 
