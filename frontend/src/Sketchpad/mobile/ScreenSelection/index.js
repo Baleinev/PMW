@@ -3,6 +3,8 @@ import ScreenGrid from './ScreenGrid';
 import initSocket from '../socket';
 import _ from 'lodash';
 import './screenSelection.css'
+const config = CONFIG.sketchpad;
+const screenNumber = CONFIG.screen.numbers
 
 export default class ScreenSelection extends React.Component {
 
@@ -10,7 +12,7 @@ export default class ScreenSelection extends React.Component {
     super();
 
     this.state = {
-      screensStatus: _.fill(Array(8), false)
+      screensStatus: _.fill(Array(screenNumber), false)
     };
 
   }

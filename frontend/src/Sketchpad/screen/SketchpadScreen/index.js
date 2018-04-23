@@ -2,7 +2,6 @@ import React from 'react';
 import Canvas from '../../Canvas/index';
 import IO from 'socket.io-client';
 import '../sketchpad.css';
-import { findDOMNode } from 'react-dom'
 
 const config = CONFIG.sketchpad;
 const network = CONFIG.network;

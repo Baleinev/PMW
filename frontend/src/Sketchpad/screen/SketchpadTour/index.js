@@ -4,6 +4,7 @@ import '../sketchpad.css';
 import SketchpadScreen from '../SketchpadScreen';
 
 const config = CONFIG.sketchpad;
+const screenNumber = CONFIG.screen.numbers
 
 export default class SketchpadTour extends React.Component {
 
@@ -12,7 +13,7 @@ export default class SketchpadTour extends React.Component {
     return (
         <div>
           <Grid columns={2}>
-            {Array.apply(null, {length: 8}).map(Number.call, Number).map(i => (
+            {Array.apply(null, {length: screenNumber}).map(Number.call, Number).map(i => (
                 <Grid.Column key={i} >
                   <SketchpadScreen screenNumber={i}/>
                 </Grid.Column>
