@@ -1,6 +1,4 @@
 const io = require('socket.io');
-const ads = require('./ads');
-
 /**
  * Provides with an interface to communicate back and forth
  * between the screens and the apps.
@@ -17,6 +15,7 @@ const ads = require('./ads');
  *  - 'reserve', {screenNumber:int} : Asks for a reservation for the screen specified in the payload
  *  - 'terminate', {} : Terminate connection and frees association with hosts
  *  - 'addShape', {item:paint object,screenNumber:int} : Add a shape to be drawn on the screen
+ *
  * PROTOCOL MONITOR -> APPS :
  *  - 'kick' , {screenNumber:int} : Kicks a user on the screen specified by the payload
  *
@@ -29,6 +28,7 @@ class Mediator {
     this.appPort = appPort;
     this.screenPort = screenPort;
     this.screens = new Array(noScreen);
+    this.ads = []
 
     for (let i = 0; i < this.screens.length; ++i) {
       this.screens[i] = {
@@ -48,6 +48,10 @@ class Mediator {
     this.screensSocket = io(this.screenPort);
     console.log(`[screens] Listening on localhost at port ${this.screenPort}`);
     this.configure();
+
+    const ads = require('./ads');
+    this.setupAdFactories(ads);
+    setInterval(()=>{this.consumeAd();}, 10000)
     console.log('Setup complete.');
   }
 
@@ -91,10 +95,8 @@ class Mediator {
           const i = this.screens.findIndex(screen => screen.clientSocketID === socket.id);
 
           if(i !== -1)
-            this.screens[i] = {
-                clientSocketID: null,
-                serverSocketID: [],
-            };
+            this.screens[i].clientSocketID = null
+
       });
 
       socket.on('kick', (data) => { context.screens[data.screenNumber].clientSocketID = null; });
@@ -126,10 +128,7 @@ class Mediator {
           const i = this.screens.findIndex(screen => screen.clientSocketID === socket.id);
 
           if(i !== -1)
-            this.screens[i] = {
-                clientSocketID: null,
-                serverSocketID: [],
-            };
+              this.screens[i].clientSocketID = null
       });
     });
 
@@ -157,27 +156,36 @@ class Mediator {
       });
     });
 
-    // Recurrently sending ads to the screen
-    for(const i in ads)
-        setInterval(()=>{this.sendAds(ads[i])},ads[i].interval*1000)
-
   }
 
   /**
-   * Send an order for a screen to display a sponsor on it
-   * @param sponsor The specific sponsor to display
+   * Setup the automatic addition of ad to the server stack
+   * @param ads The whole ads collection
    */
-  sendAds (sponsor) {
-      const filt = []
-      for(const s in this.screens)
-          if(!this.getState()[s])
-              filt.push(s)
-
-      for(const as of filt)
-        for(const socket of this.screens[as].serverSocketID)
-          this.screensSocket.to(socket).emit('ads', sponsor);
+  setupAdFactories(ads){
+      for(const ad of ads)
+        setInterval(()=>{this.ads.push(ad)}, ad.interval*1000)
   }
 
+  /**
+   * Consume one ad to be display to a free screen
+   */
+  consumeAd(){
+      if(this.ads === [])
+          return
+
+      const availableScreens = this.getStateIndex()
+      const adsToDisplay = Math.min(availableScreens.length,this.ads.length)
+
+      console.log("Order to display "+adsToDisplay+" ads")
+
+      for(let i = 0;i<adsToDisplay;i++) {
+          const sockets = this.screens[availableScreens[i]].serverSocketID
+
+          for(const socket of sockets)
+              this.screensSocket.to(socket).emit('ad',this.ads.pop())
+      }
+  }
 
   /**
    * Getter for the mediator underlying state
@@ -185,6 +193,20 @@ class Mediator {
    */
   getState() {
     return this.screens.map(s => s.clientSocketID === null);
+  }
+
+  /**
+   * Getter for the mediator underlying state
+   * under the form of an array of index of available
+   * screens.
+   */
+  getStateIndex(){
+      const screens = this.getState()
+      const availableScreens = []
+      for(const i in screens)
+          if(screens[i])
+              availableScreens.push(i)
+      return availableScreens
   }
 }
 

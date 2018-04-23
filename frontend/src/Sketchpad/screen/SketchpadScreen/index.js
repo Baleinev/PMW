@@ -24,7 +24,8 @@ export default class SketchpadScreen extends React.Component {
       width: config.screen.width,
       height: config.screen.height,
       items: [],
-      screenNumber: [screenNumber]
+      screenNumber: [screenNumber],
+      displayedAd:null
     };
   }
 
@@ -37,7 +38,12 @@ export default class SketchpadScreen extends React.Component {
   }
 
   componentDidMount() {
+
+    // Listening for new drawing orders
     this.socket.on('addShape', (item) => {
+
+      this.setState({displayedAd:null})
+
       item.size *= config.screen.width;
       if (item.tool === 'pencil') {
         item.points = item.points.map(this.toAbsolutePosition)
@@ -46,23 +52,38 @@ export default class SketchpadScreen extends React.Component {
         item.end = this.toAbsolutePosition(item.end)
       }
 
-      this.setState({items: this.state.items.concat([item])})
+      this.setState({
+          items: this.state.items.concat([item])})
     });
+
+    this.socket.on('ad', (ad) => {
+      this.setState({displayedAd:ad})
+    })
+
   }
 
   render() {
-
     const {width, height} = this.state;
-    return (
-        <div>
-          <Canvas
-              width={width}
-              height={height}
-              animate={true}
-              canvasClassName='canvas-screen'
-              items={this.state.items}
-          />
-        </div>
-    )
+    if(this.state.displayedAd === null){
+        return (
+            <div>
+                <Canvas
+                    width={width}
+                    height={height}
+                    animate={true}
+                    canvasClassName='canvas-screen'
+                    items={this.state.items}
+                />
+            </div>)
+    }
+    else{
+      return(
+          <div style={{width: width + 'px',height:height+'px'}}>
+            <h4 className='ad' style={{lineHeight:height+'px'}}>Affichage pub : {this.state.displayedAd.name}</h4>
+          </div>
+      )
+    }
+
+
   }
 }

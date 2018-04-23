@@ -2,6 +2,7 @@ import React from 'react';
 import ScreenGrid from './ScreenGrid';
 import initSocket from '../socket';
 import _ from 'lodash';
+import './screenSelection.css'
 
 export default class ScreenSelection extends React.Component {
 
@@ -15,16 +16,24 @@ export default class ScreenSelection extends React.Component {
   }
 
   componentWillMount() {
+    if(window.socket)
+      window.socket.close()
+
     window.socket = initSocket();
   }
 
   componentDidMount() {
-    window.socket.emit('state', (status) => {
-      this.setState({
-        screensStatus: status
-      })
-    });
+    this.check = setInterval(() => {
+        window.socket.emit('state', (status) => {
+            this.setState({
+                screensStatus: status
+            })
+        });
+    },200)
+  }
 
+  componentWillUnmount(){
+    clearInterval(this.check)
   }
 
   handleChooseScreen = (screenNumber) => {
@@ -40,8 +49,7 @@ export default class ScreenSelection extends React.Component {
 
   render() {
     return (
-        <div>
-          <h1>Choisissez un écran</h1>
+        <div className='tower'>
           <ScreenGrid
               screensStatus={this.state.screensStatus}
               onChooseScreen={this.handleChooseScreen}

@@ -87,6 +87,11 @@ export default class Home extends React.Component {
               width={this.width}
               height={this.height}
           />
+
+        <button className="ui icon button" >
+            <i className = "arrow left icon" />
+        </button>
+
           <ToolSelector handleToolChange={this.handleToolChange}/>
           <SizeSelector onSizeChange={this.handleSizeChange}/>
           <ColorPicker onColorChange={this.handleColorChange}/>
