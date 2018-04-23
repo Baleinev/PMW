@@ -49,7 +49,7 @@ export default class ScreenSelection extends React.Component {
 
   render() {
     return (
-        <div className='tower'>
+        <div>
           <ScreenGrid
               screensStatus={this.state.screensStatus}
               onChooseScreen={this.handleChooseScreen}

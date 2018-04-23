@@ -2,6 +2,7 @@ import React from 'react';
 import Canvas from '../../Canvas/index';
 import IO from 'socket.io-client';
 import '../sketchpad.css';
+import { findDOMNode } from 'react-dom'
 
 const config = CONFIG.sketchpad;
 const network = CONFIG.network;
@@ -52,12 +53,19 @@ export default class SketchpadScreen extends React.Component {
         item.end = this.toAbsolutePosition(item.end)
       }
 
-      this.setState({
-          items: this.state.items.concat([item])})
+      this.setState({items: this.state.items.concat([item])})
     });
 
     this.socket.on('ad', (ad) => {
       this.setState({displayedAd:ad})
+    })
+
+    this.socket.on('clear',() => {
+        this.canvas = document.getElementById('canvas-'+this.state.screenNumber)
+        if(this.canvas !== null){
+            this.ctx = this.canvas.getContext('2d');
+            this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height)
+        }
     })
 
   }
@@ -68,6 +76,7 @@ export default class SketchpadScreen extends React.Component {
         return (
             <div>
                 <Canvas
+                    screenNumber={this.state.screenNumber}
                     width={width}
                     height={height}
                     animate={true}

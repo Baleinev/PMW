@@ -95,6 +95,7 @@ export default class SketchPad extends Component {
     const {width, height, canvasClassName} = this.props;
     return (
       <canvas
+        id={'canvas-'+this.props.screenNumber}
         ref={(canvas) => { this.canvasRef = canvas; }}
         className={canvasClassName}
         onTouchStartCapture={this.onMouseDown}

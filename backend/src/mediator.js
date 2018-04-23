@@ -87,6 +87,10 @@ class Mediator {
         } else {
           // Assigning connection id and screen
           context.screens[data.screenNumber].clientSocketID = socket.id;
+
+          for(const socket of context.screens[data.screenNumber].serverSocketID)
+            context.screensSocket.to(socket).emit('clear')
+
           res(true);
         }
       });
