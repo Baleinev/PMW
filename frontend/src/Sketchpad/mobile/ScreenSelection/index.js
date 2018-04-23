@@ -37,13 +37,25 @@ export default class ScreenSelection extends React.Component {
   }
 
   handleChooseScreen = (screenNumber) => {
-    if (this.state.screensStatus[screenNumber]) {
-      window.socket.emit('reserve', { screenNumber }, (res) => {
-        console.log(res);
-        this.props.history.push(`/sketchpad/draw/${screenNumber}`);
-      })
+    if( typeof this.props.location.state !== 'undefined' &&
+        typeof this.props.location.state.admin !== 'undefined' &&
+        this.props.location.state.admin) {
+      if (!this.state.screensStatus[screenNumber]) {
+        window.socket.emit('kick', {screenNumber}, (res) => {
+          console.log(res);
+        })
+      } else {
+        alert("Impossible de kicker cet écran")
+      }
     } else {
-      alert("Ecran occupé!")
+      if (this.state.screensStatus[screenNumber]) {
+        window.socket.emit('reserve', {screenNumber}, (res) => {
+          console.log(res);
+          this.props.history.push(`/sketchpad/draw/${screenNumber}`);
+        })
+      } else {
+        alert("Ecran occupé!")
+      }
     }
   };
 
