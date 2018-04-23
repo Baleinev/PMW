@@ -27,6 +27,7 @@ export default class SketchpadScreen extends React.Component {
       screenNumber: [screenNumber],
       displayedAd:null
     };
+
   }
 
   componentWillMount() {
@@ -53,6 +54,7 @@ export default class SketchpadScreen extends React.Component {
       }
 
       this.setState({items: this.state.items.concat([item])})
+
     });
 
     this.socket.on('ad', (ad) => {

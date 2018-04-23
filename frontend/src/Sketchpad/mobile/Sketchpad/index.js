@@ -32,6 +32,13 @@ export default class Home extends React.Component {
     if (!window.socket) {
       this.props.history.push('/');
     }
+    alert("Composant monté")
+      this.AFK_detection = setTimeout(() => {
+          window.socket.close()
+          delete window.socket
+          alert("Vous avez été déconnecté en raison d'une inactivité prolongée.")
+          this.props.history.push('/sketchpad')
+      },3000)
   }
 
 
@@ -72,6 +79,15 @@ export default class Home extends React.Component {
     window.socket.emit('addShape', item, { screenNumber: this.screenNumber }, (res) => {
       console.log(res);
     });
+
+    clearTimeout(this.AFK_detection);
+
+    this.AFK_detection = setTimeout(() => {
+          window.socket.close()
+          delete window.socket
+          alert("Vous avez été déconnecté en raison d'une inactivité prolongée.")
+          this.props.history.push('/sketchpad')
+      },3000)
   };
 
   render() {
