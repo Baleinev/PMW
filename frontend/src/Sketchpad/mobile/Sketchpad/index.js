@@ -49,7 +49,7 @@ export default class Home extends React.Component {
 
   finishSketch = () => {
     window.socket.emit('terminate')
-    this.props.history.push('/sketchpad');
+    this.props.history.push('/');
   }
 
   toRelativePosition = (p) => {
