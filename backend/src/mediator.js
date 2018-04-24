@@ -186,8 +186,10 @@ class Mediator {
       for(let i = 0;i<adsToDisplay;i++) {
           const sockets = this.screens[availableScreens[i]].serverSocketID
 
+          const chosenAd = this.ads.pop()
+
           for(const socket of sockets)
-              this.screensSocket.to(socket).emit('ad',this.ads.pop())
+              this.screensSocket.to(socket).emit('ad',chosenAd)
       }
   }
 

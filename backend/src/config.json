@@ -1,7 +1,7 @@
 {
-  "host":"localhost",
+  "host":"carbon",
   "appsPort":9001,
   "screenPort":9002,
   "frontPort":3000,
-  "screenNumber":6
+  "screenNumber":8
 }
