@@ -40,6 +40,9 @@ export default class Home extends React.Component {
       },15000)
   }
 
+    componentWillUnmount(){
+        clearTimeout(this.AFK_detection)
+    }
 
   handleColorChange = (color) => {
     this.setState({color: color.hex});
@@ -103,14 +106,10 @@ export default class Home extends React.Component {
               height={this.height}
           />
 
-        <button className="ui icon button" >
-            <i className = "arrow left icon" />
-        </button>
-
           <ToolSelector handleToolChange={this.handleToolChange}/>
           <SizeSelector onSizeChange={this.handleSizeChange}/>
           <ColorPicker onColorChange={this.handleColorChange}/>
-          <Button onClick={this.finishSketch} >Terminé</Button>
+          <Button onClick={this.finishSketch} >Fini !</Button>
         </div>
     )
   }
