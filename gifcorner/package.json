@@ -1,0 +1,26 @@
+{
+  "name": "gifcorner",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "eslint": "^4.19.1",
+    "fs": "^0.0.1-security",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-giphy-select": "^1.0.3",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4",
+    "semantic-ui-css": "^2.3.1",
+    "semantic-ui-react": "^0.79.1",
+    "socket.io": "^2.1.0",
+    "socket.io-client": "^2.1.0",
+    "superagent": "^3.8.2",
+    "uws": "^9.148.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
