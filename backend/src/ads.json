@@ -1,0 +1,22 @@
+[
+  {
+    "name":"bernycool",
+    "interval": 3,
+    "res":"/url1"
+  },
+  {
+    "name":"sylvain & co",
+    "interval": 5,
+    "res":"/url2"
+  },
+  {
+    "name":"travys",
+    "interval": 7,
+    "res":"/url3"
+  },
+  {
+    "name":"boxer",
+    "interval": 2,
+    "res":"/url4"
+  }
+]

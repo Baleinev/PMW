@@ -7,6 +7,9 @@ const ColorPicker = ({onColorChange}) => {
       <div>
         <label>Color</label>
         <CirclePicker width={'100vw'} onChangeComplete={onColorChange}/>
+          <button className="circular ui icon button">
+              <i className="eraser icon"/>
+          </button>
       </div>
   )
 };

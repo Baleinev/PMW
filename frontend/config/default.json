@@ -6,6 +6,7 @@
       "height": "75vw"
     },
     "screen": {
+      "number":8,
       "width": 1024,
       "height": 768
     },
@@ -28,7 +29,6 @@
     "host":"localhost",
     "appsPort":9001,
     "screenPort":9002,
-    "frontPort":3000,
-    "socketPort":2000
+    "frontPort":3000
   }
 }
