@@ -3,13 +3,15 @@ import initSocket from '../socket';
 import _ from 'lodash';
 import ReactSignupLoginComponent from 'react-signup-login-component';
 
+const config = CONFIG.sketchpad;
+
 export default class SketchpadAdmin extends React.Component {
 
   constructor() {
     super();
 
     this.state = {
-      screensStatus: _.fill(Array(8), false)
+      screensStatus: _.fill(Array(config.screen.numbers), false)
     };
 
   }
