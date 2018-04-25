@@ -10,7 +10,7 @@ const config = CONFIG.sketchpad;
 
 export default class Home extends React.Component {
 
-  constructor({props, match}) {
+    constructor({props, match}) {
     super(props);
 
 
@@ -30,10 +30,19 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     if (!window.socket) {
-      this.props.history.push('/sketchpad');
+      this.props.history.push('/');
     }
+      this.AFK_detection = setTimeout(() => {
+          window.socket.close()
+          delete window.socket
+          alert("Vous avez été déconnecté en raison d'une inactivité prolongée.")
+          this.props.history.push('/sketchpad')
+      },15000)
   }
 
+    componentWillUnmount(){
+        clearTimeout(this.AFK_detection)
+    }
 
   handleColorChange = (color) => {
     this.setState({color: color.hex});
@@ -46,6 +55,11 @@ export default class Home extends React.Component {
   handleSizeChange = (size) => {
     this.setState({size})
   };
+
+  finishSketch = () => {
+    window.socket.emit('terminate')
+    this.props.history.push('/');
+  }
 
   toRelativePosition = (p) => {
     return {
@@ -67,6 +81,15 @@ export default class Home extends React.Component {
     window.socket.emit('addShape', item, { screenNumber: this.screenNumber }, (res) => {
       console.log(res);
     });
+
+    clearTimeout(this.AFK_detection);
+
+    this.AFK_detection = setTimeout(() => {
+          window.socket.close()
+          delete window.socket
+          alert("Vous avez été déconnecté en raison d'une inactivité prolongée.")
+          this.props.history.push('/sketchpad')
+      },15000)
   };
 
   render() {
@@ -82,10 +105,11 @@ export default class Home extends React.Component {
               width={this.width}
               height={this.height}
           />
+
           <ToolSelector handleToolChange={this.handleToolChange}/>
           <SizeSelector onSizeChange={this.handleSizeChange}/>
           <ColorPicker onColorChange={this.handleColorChange}/>
-          <Button onClick={this.finishSketch} >Terminé</Button>
+          <Button onClick={this.finishSketch} >Fini !</Button>
         </div>
     )
   }

@@ -12,7 +12,7 @@ export default class SketchpadTour extends React.Component {
     return (
         <div>
           <Grid columns={2}>
-            {Array.apply(null, {length: 8}).map(Number.call, Number).map(i => (
+            {Array.apply(null, {length: config.screen.numbers}).map(Number.call, Number).map(i => (
                 <Grid.Column key={i} >
                   <SketchpadScreen screenNumber={i}/>
                 </Grid.Column>

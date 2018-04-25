@@ -6,7 +6,7 @@ const getStateClass = (isFree) => isFree ? 'free' : 'occupied';
 
 const ScreenBox = ({isFree, number, onClick}) => (
   <div onClick={onClick} className={`screen-box ${getStateClass(isFree)}`}>
-    {isFree ? 'Disponible' : 'Occupé'}
+       {isFree ? 'Disponible' : 'Occupé'}
   </div>
 );
 
