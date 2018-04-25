@@ -1,0 +1,5 @@
+{
+  "host":"carbon",
+  "appPort":"9001",
+  "screenPort":"9002"
+}
