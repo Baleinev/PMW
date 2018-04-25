@@ -28,6 +28,7 @@ class Mediator {
     this.appPort = appPort;
     this.screenPort = screenPort;
     this.screens = new Array(noScreen);
+    this.isAdmin = false;
     this.ads = []
 
     for (let i = 0; i < this.screens.length; ++i) {
@@ -65,6 +66,8 @@ class Mediator {
 
     // Setting connection handle
     this.clientSocket.on('connection', (socket) => {
+      console.log(`User in`);
+
       socket.on('state', (res) => {
         res(this.getState());
       });
@@ -103,7 +106,18 @@ class Mediator {
 
       });
 
-      socket.on('kick', (data) => { context.screens[data.screenNumber].clientSocketID = null; });
+      socket.on('login', (data,res) => {
+        context.isAdmin = true;
+        res('pass');
+        //TODO : Secure da shit there! (Check for credentials)
+        //context.screens[data.screenNumber].clientSocketID = null;
+      });
+
+      socket.on('kick', (data) => {
+        if(context.isAdmin){
+          context.screens[data.screenNumber].clientSocketID = null;
+        }
+      });
 
       socket.on('addShape', (item, { screenNumber }, res) => {
         console.log('Item adding requested...');
@@ -150,6 +164,8 @@ class Mediator {
 
       socket.on('disconnect', () => {
         const serverSocketIDs = this.screens.map(s => s.serverSocketID);
+
+        console.log(`Client disconnected`);
 
           // Removing all bindings related to the manager that just disconnected
         for (let i = 0; i < context.screens.length; i++) {
