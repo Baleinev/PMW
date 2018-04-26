@@ -6,7 +6,10 @@ import './styles.css'
 const SizeSelector = ({onSizeChange}) => {
   return (
       <div>
-        Taille<br/>
+          <div style={{fontSize:'21px', marginBottom:'10px', marginTop:'15px', marginLeft:'25px'}}>
+              Taille
+          </div>
+
         <Slider className="PMWSlider"
                 min={1} max={15} defaultValue={5} onAfterChange={onSizeChange}/>
       </div>

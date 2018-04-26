@@ -37,7 +37,7 @@ export default class Home extends React.Component {
           delete window.socket
           alert("Vous avez été déconnecté en raison d'une inactivité prolongée.")
           this.props.history.push('/sketchpad')
-      },15000)
+      },1500000)
   }
 
     componentWillUnmount(){
@@ -108,8 +108,18 @@ export default class Home extends React.Component {
 
           <ToolSelector handleToolChange={this.handleToolChange}/>
           <SizeSelector onSizeChange={this.handleSizeChange}/>
-          <ColorPicker onColorChange={this.handleColorChange}/>
-          <Button onClick={this.finishSketch} >Fini !</Button>
+
+
+          <div style={{marginLeft:'25px', marginTop:'10px'}}>
+              <ColorPicker onColorChange={this.handleColorChange}/>
+          </div>
+
+            <div style={{marginTop:'20px', marginLeft:'150px'}}>
+          <Button onClick={this.finishSketch} >
+              Fini !
+          </Button>
+          </div>
+
         </div>
     )
   }

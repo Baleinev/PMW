@@ -5,11 +5,10 @@ const ColorPicker = ({onColorChange}) => {
 
   return (
       <div>
-        <label>Color</label>
+          <div style={{fontSize:'21px', marginBottom:'15px'}}>
+              Couleur
+          </div>
         <CirclePicker width={'100vw'} onChangeComplete={onColorChange}/>
-          <button className="circular ui icon button">
-              <i className="eraser icon"/>
-          </button>
       </div>
   )
 };
