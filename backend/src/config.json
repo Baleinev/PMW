@@ -1,5 +1,5 @@
 {
-  "host":"fonky-pc",
+  "host":"localhost",
   "appsPort":9001,
   "screenPort":9002,
   "screenNumber":8,
