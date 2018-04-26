@@ -12,8 +12,8 @@ class App extends Component {
     }
 
     sendGIF = (gif) => {
-        console.log(gif)
-        this.socket.emit('gifcorner', gif.images.original.webp)
+
+        this.socket.emit('gifcorner',gif.images.original.webp)
     }
 
     render() {

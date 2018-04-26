@@ -1,4 +1,5 @@
 {
   "appPort":9001,
-  "screenPort":9002
+  "screenPort":9002,
+  "screens":6
 }

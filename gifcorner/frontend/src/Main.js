@@ -12,7 +12,7 @@ class Main extends Component {
             <BrowserRouter>
                 <Switch>
                     <Route exact path='/gif' render={()=><App url={config.host} port={config.appPort} />}/>
-                    <Route exact path='/display' render={()=><Display />}/>
+                    <Route exact path='/display' render={()=><Display number={config.screens} url={config.host} port={config.screenPort}/>}/>
                 </Switch>
             </BrowserRouter>
         );

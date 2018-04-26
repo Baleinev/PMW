@@ -1,4 +1,27 @@
 .gif{
-    width:100%;
-    height:100%;
+    width:100% !important;
+    height: auto !important;
+    max-width: 200px;
+    display: block;
+
+}
+
+.gif_container{
+
+    /* Prevent vertical gaps */
+    line-height: 0;
+
+    width: 1024px;
+    height: 768px;
+
+    -webkit-column-count: 5;
+    -webkit-column-gap:   0px;
+    -moz-column-count:    5;
+    -moz-column-gap:      0px;
+    column-gap:           0px;
+
+    column-count: 7;
+
+    display: table-cell;
+
 }

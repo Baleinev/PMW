@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
-import io from 'socket.io-client'
 import './styles.css'
 
 class Screen extends Component {
@@ -10,26 +9,24 @@ class Screen extends Component {
         this.state = {
             gifs : []
         };
-
-        this.socket = io('ws://'+props.url+':'+props.port)
-
     }
 
+    addGif = (url) => {
+        this.state.gifs.unshift(url)
+        if(this.state.gifs.length > 100){
+            const arr = this.state.gifs.splice(0)
+            arr.pop()
+            this.setState({gifs:arr})
+        }
 
-    componentDidMount(){
-        this.socket.on('gifcorner',(url) => {
-            this.state.gifs.push(url)
-            this.setState({gifs:this.state.gifs})
-        })
+        this.setState({gifs:this.state.gifs})
     }
 
     render() {
         return (
-            <div className="ui grid">
-                {this.state.gifs.map((url) =>(
-                    <div key={url} className="wide column">
-                        <img className="gif" src={url}></img>
-                    </div>
+            <div className="gif_container">
+                {this.state.gifs.map((url,index) =>(
+                    <img key={index}  alt="nice gif" className="gif" src={url}></img>
                 ))}
             </div>
         );
