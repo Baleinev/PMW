@@ -1,6 +1,7 @@
 {
-  "host":"carbon",
+  "host":"fonky-pc",
   "appsPort":9001,
-  "screenPort":9002
-  "screenNumber":8
+  "screenPort":9002,
+  "screenNumber":8,
+  "frontPort":3000
 }
