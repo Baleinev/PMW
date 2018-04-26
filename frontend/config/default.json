@@ -1,0 +1,34 @@
+{
+  "sketchpad": {
+    "canvas": {
+      "ratio": 1.333,
+      "width": "100vw",
+      "height": "75vw"
+    },
+    "screen": {
+      "number":8,
+      "width": 1024,
+      "height": 768
+    },
+    "default": {
+      "lineWidth": 2,
+      "color": {
+        "line": "#000000",
+        "fill": "#fffff"
+      },
+      "fill": false,
+      "tool": "pencil"
+    },
+    "lineWidth": {
+      "min": 1,
+      "max": 10
+    },
+    "animate": true
+  },
+  "network": {
+    "host":"sketchpad-env.4z94jcgz2n.eu-central-1.elasticbeanstalk.com",
+    "appsPort":9001,
+    "screenPort":9002,
+    "frontPort":3000
+  }
+}
