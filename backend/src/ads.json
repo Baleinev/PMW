@@ -1,22 +1,42 @@
 [
   {
-    "name":"bernycool",
-    "interval": 3,
-    "res":"/url1"
+    "name":"Travys 1",
+    "interval": 6,
+    "res":"travys1.jpg"
   },
   {
-    "name":"sylvain & co",
-    "interval": 5,
-    "res":"/url2"
+    "name":"Travys 2",
+    "interval": 6,
+    "res":"travys2.png"
   },
   {
-    "name":"travys",
-    "interval": 7,
-    "res":"/url3"
+    "name":"Sylvain & Co.",
+    "interval": 4,
+    "res":"sylvain.jpg"
   },
   {
-    "name":"boxer",
-    "interval": 2,
-    "res":"/url4"
+    "name":"Boxer",
+    "interval": 9,
+    "res":"boxer.jpg"
+  },
+  {
+    "name":"Greub",
+    "interval": 9,
+    "res":"greub1.jpg"
+  },
+  {
+    "name":"Agropole",
+    "interval": 9,
+    "res":"agropole.jpg"
+  },
+  {
+    "name":"Loterie Romande",
+    "interval":9,
+    "res":"loterie_romande.jpg"
+  },
+  {
+    "name":"Impact vision",
+    "interval":9,
+    "res":"impactvision.png"
   }
 ]
