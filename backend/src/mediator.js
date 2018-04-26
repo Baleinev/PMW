@@ -4,7 +4,7 @@ const io = require('socket.io');
  * between the screens and the apps.
  * 4 entites are to be distinguished ; the apps, the mediator, the screen and the monitor.
  * An app is defined as the endpoint provided to the users.
- * We then make a big difference between a 'conceptual screen' and
+ * We then make a big  difference between a 'conceptual screen' and
  * a 'physical screen'. The former is the entity behind the latter and
  * thus managing it.
  * Finally, the monitor is a potential man-in-the-midde actor, providing
@@ -24,11 +24,12 @@ const io = require('socket.io');
  *                                the specified physical screens.
  */
 class Mediator {
-  constructor(noScreen, appPort, screenPort) {
+  constructor(noScreen, appPort, screenPort, adminCredentials) {
     this.appPort = appPort;
     this.screenPort = screenPort;
     this.screens = new Array(noScreen);
     this.isAdmin = false;
+    this.adminCredentials = adminCredentials;
     this.ads = []
 
     for (let i = 0; i < this.screens.length; ++i) {
@@ -54,6 +55,20 @@ class Mediator {
     this.setupAdFactories(ads);
     setInterval(()=>{this.consumeAd();}, 10000)
     console.log('Setup complete.');
+  }
+
+  checkCredential(fromLogin){
+
+    var found = this.adminCredentials.find((cred) => {
+      return cred.usr == fromLogin.username
+    })
+
+    if(typeof(found) == 'undefined')
+      return false;
+
+
+    return found.pwd == fromLogin.password
+
   }
 
   /**
@@ -107,8 +122,15 @@ class Mediator {
       });
 
       socket.on('login', (data,res) => {
-        context.isAdmin = true;
-        res('pass');
+
+        if(this.checkCredential(data.data)){
+          context.isAdmin = true;
+          res('pass');
+        }else{
+          context.isAdmin = false;
+          res('tgpd');
+        }
+
         //TODO : Secure da shit there! (Check for credentials)
         //context.screens[data.screenNumber].clientSocketID = null;
       });

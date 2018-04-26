@@ -44,7 +44,12 @@ export default class SketchpadAdmin extends React.Component {
   loginWasClickedCallback = (data) => {
     console.log(data)
     window.socket.emit('login', { data }, (res) => {
-      console.log(res);
+
+      if(res != 'pass'){
+        alert("WRONG PWD MOFO!");
+        return;
+      }
+
       this.props.history.push({
         pathname: `/sketchpad`,
         search: `admin`,
