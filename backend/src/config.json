@@ -1,7 +1,5 @@
 {
-  "host":"localhost",
   "appsPort":9001,
   "screenPort":9002,
-  "screenNumber":8,
-  "frontPort":3000
+  "screenNumber":8
 }
