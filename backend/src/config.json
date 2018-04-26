@@ -1,7 +1,16 @@
 {
-  "host":"carbon",
   "appsPort":9001,
   "screenPort":9002,
+  "screenNumber":8,
   "frontPort":3000,
-  "screenNumber":8
+  "adminCredential":[
+    {
+      "usr": "lol",
+      "pwd": "suze"
+    },
+    {
+      "user": "Suze",
+      "pwd": "SUUUUUZE"
+    }
+  ]
 }

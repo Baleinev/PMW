@@ -4,7 +4,7 @@ const io = require('socket.io');
  * between the screens and the apps.
  * 4 entites are to be distinguished ; the apps, the mediator, the screen and the monitor.
  * An app is defined as the endpoint provided to the users.
- * We then make a big difference between a 'conceptual screen' and
+ * We then make a big  difference between a 'conceptual screen' and
  * a 'physical screen'. The former is the entity behind the latter and
  * thus managing it.
  * Finally, the monitor is a potential man-in-the-midde actor, providing
@@ -24,10 +24,12 @@ const io = require('socket.io');
  *                                the specified physical screens.
  */
 class Mediator {
-  constructor(noScreen, appPort, screenPort) {
+  constructor(noScreen, appPort, screenPort, adminCredentials) {
     this.appPort = appPort;
     this.screenPort = screenPort;
     this.screens = new Array(noScreen);
+    this.isAdmin = false;
+    this.adminCredentials = adminCredentials;
     this.ads = []
 
     for (let i = 0; i < this.screens.length; ++i) {
@@ -55,6 +57,20 @@ class Mediator {
     console.log('Setup complete.');
   }
 
+  checkCredential(fromLogin){
+
+    var found = this.adminCredentials.find((cred) => {
+      return cred.usr == fromLogin.username
+    })
+
+    if(typeof(found) == 'undefined')
+      return false;
+
+
+    return found.pwd == fromLogin.password
+
+  }
+
   /**
    * Configures the mediator main behavior
    * implementation of the protocol
@@ -65,6 +81,8 @@ class Mediator {
 
     // Setting connection handle
     this.clientSocket.on('connection', (socket) => {
+      console.log(`User in`);
+
       socket.on('state', (res) => {
         res(this.getState());
       });
@@ -103,7 +121,25 @@ class Mediator {
 
       });
 
-      socket.on('kick', (data) => { context.screens[data.screenNumber].clientSocketID = null; });
+      socket.on('login', (data,res) => {
+
+        if(this.checkCredential(data.data)){
+          context.isAdmin = true;
+          res('pass');
+        }else{
+          context.isAdmin = false;
+          res('tgpd');
+        }
+
+        //TODO : Secure da shit there! (Check for credentials)
+        //context.screens[data.screenNumber].clientSocketID = null;
+      });
+
+      socket.on('kick', (data) => {
+        if(context.isAdmin){
+          context.screens[data.screenNumber].clientSocketID = null;
+        }
+      });
 
       socket.on('addShape', (item, { screenNumber }, res) => {
         console.log('Item adding requested...');
@@ -150,6 +186,8 @@ class Mediator {
 
       socket.on('disconnect', () => {
         const serverSocketIDs = this.screens.map(s => s.serverSocketID);
+
+        console.log(`Client disconnected`);
 
           // Removing all bindings related to the manager that just disconnected
         for (let i = 0; i < context.screens.length; i++) {

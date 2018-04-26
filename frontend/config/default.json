@@ -6,7 +6,7 @@
       "height": "75vw"
     },
     "screen": {
-      "numbers":6,
+      "number":8,
       "width": 1024,
       "height": 768
     },
@@ -26,10 +26,9 @@
     "animate": true
   },
   "network": {
-    "host":"localhost",
+    "host":"sketchpad-env.4z94jcgz2n.eu-central-1.elasticbeanstalk.com",
     "appsPort":9001,
     "screenPort":9002,
-    "frontPort":3000,
-    "socketPort":2000
+    "frontPort":3000
   }
 }
