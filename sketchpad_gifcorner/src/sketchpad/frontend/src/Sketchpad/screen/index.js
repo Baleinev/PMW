@@ -7,7 +7,7 @@ export default class Home extends React.Component {
   render() {
 
     return (
-      <SketchpadTour/>
+      <SketchpadTour location={this.props.location}/>
     )
   }
 }

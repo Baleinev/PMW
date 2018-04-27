@@ -107,7 +107,7 @@ class Mediator {
           context.screens[data.screenNumber].clientSocketID = socket.id;
 
           for(const socket of context.screens[data.screenNumber].serverSocketID)
-            context.screensSocket.to(socket).emit('clear')
+            context.screensSocket.to(socket).emit('clear', {screenNumber:data.screenNumber})
 
           res(true);
         }
@@ -159,7 +159,7 @@ class Mediator {
 
         // Transmitting data to appropriate manager
         screens.forEach((screen) => {
-          context.screensSocket.to(screen).emit('addShape', item, screenNumber);
+          context.screensSocket.to(screen).emit('addShape', item, {screenNumber:screenNumber});
         });
       });
 
