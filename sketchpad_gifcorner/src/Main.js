@@ -12,10 +12,6 @@ import config from "./gifcorner/frontend/src/config"
 
 class Main extends Component {
 
-  constructor() {
-    super();
-  }
-
   render() {
     return (
         <BrowserRouter>

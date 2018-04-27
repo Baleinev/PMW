@@ -1,5 +1,4 @@
 import IO from 'socket.io-client';
-import React from 'react';
 import CONFIG from '../../../config/default'
 
 const network = CONFIG.network;

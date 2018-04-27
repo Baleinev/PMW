@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Screen from './Screen/Screen'
 import io from 'socket.io-client'
 
-
 class Display extends Component {
 
     constructor(props){
