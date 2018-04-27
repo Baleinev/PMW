@@ -11,7 +11,13 @@ const SizeSelector = ({onSizeChange}) => {
           </div>
 
         <Slider className="PMWSlider"
-                min={1} max={15} defaultValue={5} onAfterChange={onSizeChange}/>
+                min={1} max={15} defaultValue={5} onAfterChange={onSizeChange}
+                handleStyle={{
+                    borderColor: 'light-blue',
+                    height: 20,
+                    width: 20,
+                    marginTop: -8
+                }}/>
       </div>
   )
 };
