@@ -1,10 +1,9 @@
 {
-  "name": "pmw",
+  "name": "pmw-bundled",
   "version": "1.0.0",
   "description": "Pimp My Wall",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Baleinev/PMW.git"

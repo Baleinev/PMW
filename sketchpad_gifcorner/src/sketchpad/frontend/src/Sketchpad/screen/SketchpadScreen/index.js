@@ -2,9 +2,7 @@ import React from 'react';
 import Canvas from '../../Canvas/index';
 import IO from 'socket.io-client';
 import '../sketchpad.css';
-import Ad from "../../../Ad";
-import CONFIG from '../../../../config/default';
-
+import Ad from "../../../Ad/index";
 
 const config = CONFIG.sketchpad;
 const network = CONFIG.network;
@@ -89,9 +87,9 @@ export default class SketchpadScreen extends React.Component {
                 />
             </div>)
     } else {
-      return(
+        return(
           <Ad image={this.state.displayedAd.res}/>
-      )
+        )
     }
 
 

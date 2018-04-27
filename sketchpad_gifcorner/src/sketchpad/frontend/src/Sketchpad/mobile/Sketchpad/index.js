@@ -5,7 +5,6 @@ import ColorPicker from './ColorPicker';
 import {Button} from 'semantic-ui-react';
 import Canvas from '../../Canvas/index';
 import './sketchpad.css';
-import CONFIG from '../../../../config/default'
 
 const config = CONFIG.sketchpad;
 
@@ -109,8 +108,18 @@ export default class Home extends React.Component {
 
           <ToolSelector handleToolChange={this.handleToolChange}/>
           <SizeSelector onSizeChange={this.handleSizeChange}/>
-          <ColorPicker onColorChange={this.handleColorChange}/>
-          <Button onClick={this.finishSketch} >Fini !</Button>
+
+
+          <div style={{marginLeft:'25px', marginTop:'10px'}}>
+              <ColorPicker onColorChange={this.handleColorChange}/>
+          </div>
+
+            <div style={{marginTop:'20px', marginLeft:'150px'}}>
+          <Button onClick={this.finishSketch} >
+              Fini !
+          </Button>
+          </div>
+
         </div>
     )
   }

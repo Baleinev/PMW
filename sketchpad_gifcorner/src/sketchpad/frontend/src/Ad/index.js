@@ -4,8 +4,13 @@ import style from './styles.css'
 
 const makeStyle = (image) => {
     return {
-        "background": "url(/"+{image}+") no-repeat",
-        "backgroundSize":"cover"
+        "backgroundImage": "url(/"+image+")",
+        "backgroundRepeat":"no-repeat",
+        "backgroundPosition":"center",
+        "backgroundColor":"black",
+        "backgroundSize":"contain",
+        "height":"768px",
+        "width":"814px"
     }
 }
 
