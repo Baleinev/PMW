@@ -103,6 +103,7 @@ export default class SketchPad extends Component {
         onTouchEndCapture={this.onMouseUp}
         width={width}
         height={height}
+        style={{width:'100%'}}
       />
     )
   }
