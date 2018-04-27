@@ -1,5 +1,5 @@
 {
-  "host":"carbon",
+  "host":"air-de-quentin",
   "appsPort":9001,
   "screenPort":9002,
   "frontPort":3000,

@@ -87,9 +87,9 @@ export default class SketchpadScreen extends React.Component {
                 />
             </div>)
     } else {
-      return(
+        return(
           <Ad image={this.state.displayedAd.res}/>
-      )
+        )
     }
 
 
