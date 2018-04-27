@@ -1,0 +1,42 @@
+[
+  {
+    "name":"Travys 1",
+    "interval": 600,
+    "res":"travys1.jpg"
+  },
+  {
+    "name":"Travys 2",
+    "interval": 600,
+    "res":"travys2.png"
+  },
+  {
+    "name":"Sylvain & Co.",
+    "interval": 450,
+    "res":"sylvain.jpg"
+  },
+  {
+    "name":"Boxer",
+    "interval": 900,
+    "res":"boxer.jpg"
+  },
+  {
+    "name":"Greub",
+    "interval": 900,
+    "res":"greub1.jpg"
+  },
+  {
+    "name":"Agropole",
+    "interval": 900,
+    "res":"agropole.jpg"
+  },
+  {
+    "name":"Loterie Romande",
+    "interval":900,
+    "res":"loterie_romande.jpg"
+  },
+  {
+    "name":"Impact vision",
+    "interval":900,
+    "res":"impactvision.png"
+  }
+]

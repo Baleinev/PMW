@@ -1,0 +1,16 @@
+{
+  "appsPort":9001,
+  "screenPort":9002,
+  "screenNumber":8,
+  "frontPort":80,
+  "adminCredential":[
+    {
+      "usr": "lol",
+      "pwd": "suze"
+    },
+    {
+      "user": "Suze",
+      "pwd": "SUUUUUZE"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "host":"sketchpad-env.4z94jcgz2n.eu-central-1.elasticbeanstalk.com",
+  "appPort":"9001",
+  "screenPort":"9002",
+  "screens":8
+}
