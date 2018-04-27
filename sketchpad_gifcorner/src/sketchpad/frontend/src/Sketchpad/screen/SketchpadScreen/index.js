@@ -3,6 +3,7 @@ import Canvas from '../../Canvas/index';
 import IO from 'socket.io-client';
 import '../sketchpad.css';
 import Ad from "../../../Ad/index";
+import CONFIG from '../../../../config/default'
 
 const config = CONFIG.sketchpad;
 const network = CONFIG.network;

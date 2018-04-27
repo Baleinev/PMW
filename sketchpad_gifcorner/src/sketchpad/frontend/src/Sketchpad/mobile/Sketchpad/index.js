@@ -5,6 +5,7 @@ import ColorPicker from './ColorPicker';
 import {Button} from 'semantic-ui-react';
 import Canvas from '../../Canvas/index';
 import './sketchpad.css';
+import CONFIG from '../../../../config/default'
 
 const config = CONFIG.sketchpad;
 
